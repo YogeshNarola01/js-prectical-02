@@ -1,0 +1,66 @@
+<html>
+<table align="center" border="6">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td><input type="text" id="name"></td>
+        </tr>
+        <tr>
+            <td>Submit</td>
+            <td><button type="button" onclick="SaveRecord()">SaveData</button></td>
+        </tr>
+    </thead>
+</table>
+
+<h1 align="center">All record</h1>
+<table align="center" border="6">
+    <thead>
+        <td>Id</td>
+        <td>Name</td>
+        <td>Delet</td>
+    </thead>
+    <tbody id="record"></tbody>
+</table>
+
+
+<script type="text/javascript">
+    var record = [];
+    const ViewRecord = () => {
+        let tbl = "";
+        record.map((val) => {
+            return (
+                tbl += `
+                        <tr>
+                            <td>${val.id}</td>
+                            <td>${val.name}</td>
+                            <td><button onclick="DeletRecord(${val.id})">Delet</button></td>
+                        <tr>
+                    `
+            )
+        });
+        document.getElementById("record").innerHTML = tbl;
+    }
+    ViewRecord();
+
+    let SaveRecord = () => {
+        let username = document.getElementById("name").value;
+        let id = Math.floor(Math.random() * 10000);
+
+        let obj = {
+            name: username,
+            id: id
+        }
+        record.push(obj);
+        ViewRecord();
+        document.getElementById("name").value = "";
+    }
+    let DeletRecord = (id) => {
+        var deletR = record.filter((val) => {
+            return val.id != id;
+        });
+        record = deletR;
+        ViewRecord();
+    }
+</script>
+
+</html>
